@@ -18,7 +18,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
   //width: 100%;
   //background-color: darkslategrey;
@@ -104,7 +104,7 @@ footer {
 }
 main {
   flex: 1 1 auto;
-  //margin-top: 70px;
+  margin-top: 80px;
   height: 100vh;
   //background-color: red;
 }
@@ -112,7 +112,7 @@ aside {
   flex: 1 1 auto;
   background-color: rgba(0,0,0,.3);
   max-width: 18.7em;
-  align-self: flex-start;
+  align-self: flex-end;
   font-family: 'PT Sans', sans-serif;
   font-weight: 400;
   .aside-wrap {
@@ -167,7 +167,7 @@ aside {
   margin-left: 5.5%;
   max-width: 980px;
   //margin-left: 40px;
-  margin-top: 70px;
+  //margin-top: 70px;
 }
 .card:nth-of-type(6) {
   visibility: hidden;
