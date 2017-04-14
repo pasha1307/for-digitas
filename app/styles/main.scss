@@ -191,6 +191,9 @@ aside {
   .card-title { background-color: #666547; }
 }
 .card:nth-of-type(7) {
+  @media (max-width: 1200px) {
+    visibility: hidden;
+  }
   .card-title { background-color: #03396c;}
 }
 .card {

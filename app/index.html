@@ -15,16 +15,16 @@
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
-	  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
     
     <!-- build:js scripts/vendor/modernizr.js -->
 	  <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+	  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 	  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
 	  <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
 	  <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
-    <!-- endbuild -->
   </head>
   <body>
     <!--[if IE]>
@@ -92,56 +92,56 @@
 		<footer><span>Logo Here</span></footer>
     </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-	<script>
-      var vm = new Vue({
-        el: '#app',
-        data: {
-          title: '',
-          name: '',
-          needIt: true,
-          sideBar: false,
-          isSelected: false,
-          selectedItem: {},
-          startSearch: '',
-          searchOutput: '',
-          url: 'http://www.omdbapi.com/?s=',
-          mvs: []
-        }
-        ,
-        watch: {
-          name: function() {
-            this.searchOutput = '';
-            if(this.name.length > 0) {
-              this.getSome();
-              this.needIt = false;
-            }
-          }
+	<!--<script>-->
+      <!--var vm = new Vue({-->
+        <!--el: '#app',-->
+        <!--data: {-->
+          <!--title: '',-->
+          <!--name: '',-->
+          <!--needIt: true,-->
+          <!--sideBar: false,-->
+          <!--isSelected: false,-->
+          <!--selectedItem: {},-->
+          <!--startSearch: '',-->
+          <!--searchOutput: '',-->
+          <!--url: 'http://www.omdbapi.com/?s=',-->
+          <!--mvs: []-->
+        <!--}-->
+        <!--,-->
+        <!--watch: {-->
+          <!--name: function() {-->
+            <!--this.searchOutput = '';-->
+            <!--if(this.name.length > 0) {-->
+              <!--this.getSome();-->
+              <!--this.needIt = false;-->
+            <!--}-->
+          <!--}-->
 
-        },
-        methods: {
-          getSome: _.debounce(function () {
-            axios.get('http://www.omdbapi.com/?s=' + this.name)
-              .then(function (response) {
-                if(response.data.Search !== undefined) {
-                  this.mvs = response.data.Search;
-                  vm.searchOutput = this.mvs.slice(0,7);
-                  vm.title = '';
-                  console.log(vm.searchOutput[2])
-                }
-                else if (vm.name.length > 1){ vm.title = "Try a different word!" }
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-          }, 500),
-          onShowMovie: function (id) {
-            this.selectedItem = id;
-            this.isSelected = true;
-            console.log(this.selectedItem)
-          }
-        }
-      })
-	</script>
+        <!--},-->
+        <!--methods: {-->
+          <!--getSome: _.debounce(function () {-->
+            <!--axios.get('http://www.omdbapi.com/?s=' + this.name)-->
+              <!--.then(function (response) {-->
+                <!--if(response.data.Search !== undefined) {-->
+                  <!--this.mvs = response.data.Search;-->
+                  <!--vm.searchOutput = this.mvs.slice(0,7);-->
+                  <!--vm.title = '';-->
+                  <!--console.log(vm.searchOutput[2])-->
+                <!--}-->
+                <!--else if (vm.name.length > 1){ vm.title = "Try a different word!" }-->
+              <!--})-->
+              <!--.catch(function (error) {-->
+                <!--console.log(error);-->
+              <!--});-->
+          <!--}, 500),-->
+          <!--onShowMovie: function (id) {-->
+            <!--this.selectedItem = id;-->
+            <!--this.isSelected = true;-->
+            <!--console.log(this.selectedItem)-->
+          <!--}-->
+        <!--}-->
+      <!--})-->
+	<!--</script>-->
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
