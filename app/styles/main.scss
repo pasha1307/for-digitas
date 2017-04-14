@@ -1,6 +1,13 @@
 // bower:scss
 // endbower
 @import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700');
+$bgcolor: darkslategrey;
+$bodycolor: #666666;
+$green: #79A70A;
+$mainfont: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$secondfont: 'PT Sans', sans-serif;
+$movietitle: 'Slabo 27px', serif;
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -9,9 +16,10 @@
 }
 
 body {
-  background-color: darkslategrey;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #666666;
+  background-color: $bgcolor;
+  font-family: $mainfont;
+  font-weight:300;
+  color: $bodycolor;
   //background-image: url(../images/bg.png);
 }
 #wrapper {
@@ -21,21 +29,23 @@ body {
   justify-content: flex-start;
   height: 100vh;
   margin-left: 50px;
-  //width: 100%;
-  //background-color: darkslategrey;
 }
 .intro {
   display: block;
-  margin: 150px auto;
+  margin: 50px auto 0 auto;
   color: #AAAAAA;
-  width: 450px;
+  width: 650px;
+  text-align: center;
+  p {
+    font-size: 1.2em;
+    color: whitesmoke;
+  }
 }
 header {
   position: fixed;
   top: 0;
   width: 100%;
   height: 60px;
-  //background-color: green;
   z-index: 2;
   .search {
     position:relative;
@@ -83,9 +93,9 @@ header {
     }
   }
   .search-error__span {
-    margin-left: 30%;
-    font-size: 1.1em;
-    top: 20px;
+    left: 430px;
+    font-size: 1.5em;
+    top: 30px;
     color: red;
     position: absolute;
   }
@@ -96,12 +106,10 @@ footer {
   bottom: 10px;
   width: 10%;
   right: 100px;
-  height: 220px;
+  height: 200px;
   span {
-    //font-size: 1.3em;
-    //color: slategray;
     img {
-      height: 220px;
+      height: 200px;
     }
   }
   //background-color: green;
@@ -117,8 +125,9 @@ aside {
   background-color: rgba(0,0,0,.3);
   max-width: 18.7em;
   align-self: flex-end;
-  font-family: 'PT Sans', sans-serif;
+  font-family: $secondfont;
   font-weight: 400;
+
   .aside-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -180,7 +189,8 @@ aside {
   .card-title { background-color: #d11141}
 }
 .card:nth-of-type(2) {
-  .card-title { background-color: #00b159;}
+  .card-title { background-color: #00b159;
+  }
 }
 .card:nth-of-type(3) {
   .card-title { background-color: #00aedb}
@@ -217,13 +227,13 @@ aside {
   }
   .card-summary {
     padding: 5% 5% 3% 5%;
-    font-family: 'PT Sans', sans-serif;
-    color: #79A70A;
+    font-family: $secondfont;
+    color: $green;
     font-size: 1.5em;
     span {
-      font-family: 'PT Sans', sans-serif;
+      font-family: $secondfont;
       font-weight:700;
-      color: darkslategrey;
+      color: $bgcolor;
     }
   }
   .card-header {
@@ -259,7 +269,7 @@ aside {
       -webkit-transform: rotate(45deg);
       width: 100px;
       display: block;
-      background: #79A70A;
+      background: $green;
       background: linear-gradient(#9BC90D 0%, #79A70A 100%);
       box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
       position: absolute;
@@ -268,19 +278,19 @@ aside {
         content: "";
         position: absolute; left: 0px; top: 100%;
         z-index: -1;
-        border-left: 3px solid #79A70A;
+        border-left: 3px solid $green;
         border-right: 3px solid transparent;
         border-bottom: 3px solid transparent;
-        border-top: 3px solid #79A70A;
+        border-top: 3px solid $green;
       }
       :after {
         content: "";
         position: absolute; right: 0px; top: 100%;
         z-index: -1;
         border-left: 3px solid transparent;
-        border-right: 3px solid #79A70A;
+        border-right: 3px solid $green;
         border-bottom: 3px solid transparent;
-        border-top: 3px solid #79A70A;
+        border-top: 3px solid $green;
       }
     }
   }
@@ -289,8 +299,7 @@ aside {
     background-color: rgba(248, 210, 146, 0.9);
     padding: 3.5% 0 2.5% 0;
     color: white;
-    //font-family: 'Roboto Condensed', sans-serif;
-    font-family: 'Slabo 27px', serif;
+    font-family: $movietitle;
     text-transform: uppercase;
     position: absolute;
     bottom: 0;

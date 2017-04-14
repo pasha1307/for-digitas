@@ -27,12 +27,13 @@ var vm = new Vue({
       getSome: _.debounce(function () {
         axios.get('http://www.omdbapi.com/?s=' + this.name)
           .then(function (response) {
-            console.log(response)
+            if(response.data.Search !== undefined) {
               vm.mvs = response.data.Search;
               vm.searchOutput = vm.mvs.slice(0,7);
               vm.title = '';
-
-            // else if (vm.name.length > 1){ vm.title = 'Try a different word!' }
+              console.log(vm.searchOutput[2])
+            }
+            else if (vm.name.length > 1){ vm.title = 'Try a different word!' }
           })
           .catch(function (error) {
             console.log(error);
@@ -44,4 +45,4 @@ var vm = new Vue({
         console.log(this.selectedItem)
       }
     }
-  })
+  });
