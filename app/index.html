@@ -31,10 +31,12 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div id="app">
-		<div class="intro" v-if="needIt" style="margin-top: 150px;">
-			<h1>Assignment fo Digitas</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur at dolor error impedit ipsum minima natus, nihil? Asperiores cumque dolores, error illo incidunt nihil, quas quasi recusandae rem voluptate voluptatibus.</p>
-		</div>
+		<transition name="fade" mode="out-in">
+			<div class="intro" v-if="needIt" style="margin-top: 150px;">
+				<h1>Assignment fo Digitas</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur at dolor error impedit ipsum minima natus, nihil? Asperiores cumque dolores, error illo incidunt nihil, quas quasi recusandae rem voluptate voluptatibus.</p>
+			</div>
+		</transition>
 		<header>
 		<div class="search">
 			<input type="text" class="input-search" autofocus  placeholder="start typing..." v-model="name">
@@ -50,25 +52,28 @@
 
         <main>
           <div class="cards">
-            <a class="card" href="#" v-for="mv in searchOutput" @click="onShowMovie(mv)">
-				<div class="card-genre"><span>{{mv.Type}}</span></div>
-              <span class="card-header" v-if="mv.Poster !== 'N/A'" :style="{ backgroundImage: 'url(' + mv.Poster + ')', backgroundPosition: '0 0'}">
+			  <transition-group name="fade" tag="div" class="cards">
+				  <a class="card" href="#" v-for="(mv, index) in searchOutput" @click="onShowMovie(mv)" :key="index">
+					  <div class="card-genre"><span>{{mv.Type}}</span></div>
+					  <span class="card-header" v-if="mv.Poster !== 'N/A'" :style="{ backgroundImage: 'url(' + mv.Poster + ')', backgroundPosition: '0 0'}">
 				<span class="card-title">
 					<h3>{{mv.Title}}</h3>
 				</span>
 			</span>
-				<span class="card-header" v-else style="background-image: url(./images/noposter.png); background-position: bottom 20px center">
+					  <span class="card-header" v-else style="background-image: url(./images/noposter.png); background-position: bottom 20px center">
 				<span class="card-title">
 					<h3>{{mv.Title}}</h3>
 				</span>
 			</span>
-              <span class="card-summary">
+					  <span class="card-summary">
 				Year <span>{{mv.Year}}</span>
 			</span>
-              <span class="card-meta">
+					  <span class="card-meta">
 				<img src="./images/info_1.png" alt="">
 			</span>
-            </a>
+				  </a>
+			  </transition-group>
+
           </div>
         </main>
 		  <transition name="fade">
@@ -90,7 +95,7 @@
 			  </aside>
 		  </transition>
 	  </div>
-		<footer><span>Logo Here</span></footer>
+		<footer><span><img src="./images/logo.png" alt=""></span></footer>
     </div>
 
     <!-- build:js scripts/vendor.js -->
