@@ -1,0 +1,156 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>for digitas</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+	  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/vendor/modernizr.js -->
+	  <script src="/bower_components/modernizr/modernizr.js"></script>
+	  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+	  <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+	  <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="app">
+		<div class="intro" v-if="needIt" style="margin-top: 150px;">
+			<h1>Assignment fo Digitas</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur at dolor error impedit ipsum minima natus, nihil? Asperiores cumque dolores, error illo incidunt nihil, quas quasi recusandae rem voluptate voluptatibus.</p>
+		</div>
+		<header>
+		<div class="search">
+			<input type="text" class="input-search" autofocus  placeholder="start typing..." v-model="name">
+			<button class="btn-search">
+				<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 768 768">
+					<path fill="#000" d="M320 32q58.5 0 111.875 22.875t91.875 61.375 61.375 91.875 22.875 111.875q0 50.25-16.375 96.25t-46.625 83.5l181.75 181.5q9.25 9.25 9.25 22.75 0 13.75-9.125 22.875t-22.875 9.125q-13.5 0-22.75-9.25l-181.5-181.75q-37.5 30.25-83.5 46.625t-96.25 16.375q-58.5 0-111.875-22.875t-91.875-61.375-61.375-91.875-22.875-111.875 22.875-111.875 61.375-91.875 91.875-61.375 111.875-22.875zM320 96q-45.5 0-87 17.75t-71.5 47.75-47.75 71.5-17.75 87 17.75 87 47.75 71.5 71.5 47.75 87 17.75 87-17.75 71.5-47.75 47.75-71.5 17.75-87-17.75-87-47.75-71.5-71.5-47.75-87-17.75z"></path>
+				</svg>
+			</button>
+		</div>
+		<span class="search-error__span">{{title}}</span>
+	</header>
+      <div id="wrapper">
+
+        <main>
+          <div class="cards">
+            <a class="card" href="#" v-for="mv in searchOutput" @click="onShowMovie(mv)">
+				<div class="card-genre"><span>{{mv.Type}}</span></div>
+              <span class="card-header" v-if="mv.Poster !== 'N/A'" :style="{ backgroundImage: 'url(' + mv.Poster + ')', backgroundPosition: '0 0'}">
+				<span class="card-title">
+					<h3>{{mv.Title}}</h3>
+				</span>
+			</span>
+				<span class="card-header" v-else style="background-image: url(./images/noposter.png); background-position: bottom 20px center">
+				<span class="card-title">
+					<h3>{{mv.Title}}</h3>
+				</span>
+			</span>
+              <span class="card-summary">
+				Year <span>{{mv.Year}}</span>
+			</span>
+              <span class="card-meta">
+				<img src="./images/info_1.png" alt="">
+			</span>
+            </a>
+          </div>
+        </main>
+        <aside :class="{show: isSelected}" v-if="isSelected">
+			<img :src="selectedItem.Poster" alt=""  v-if="selectedItem.Poster !== 'N/A'">
+			<img src="./images/noposter-l.png" alt="" v-else>
+
+			<div class="aside-wrap">
+				<div class="close-button">
+                            <span class="close-button" id="close-sidebar" @click="isSelected=false">
+                        <a href="#"><img src="./images/close_icon.svg" alt="" ></a>
+                        </span>
+				</div>
+				<!--<span>{{selectedItem.Title}}</span>-->
+				<span>Genre:<span class="aside-wrap__span"> {{selectedItem.Type}}</span> </span>
+				<span> Released In: <span class="aside-wrap__span"> {{selectedItem.Year}}</span> </span>
+				<span> IMDBID: <span class="aside-wrap__span">{{selectedItem.imdbID}}</span> </span>
+			</div>
+		</aside>
+
+      </div>
+		<footer><span>Logo Here</span></footer>
+    </div>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+	<script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          title: '',
+          name: '',
+          needIt: true,
+          sideBar: false,
+          isSelected: false,
+          selectedItem: {},
+          startSearch: '',
+          searchOutput: '',
+          url: 'http://www.omdbapi.com/?s=',
+          mvs: []
+        }
+        ,
+        watch: {
+          name: function() {
+            this.searchOutput = '';
+            if(this.name.length > 0) {
+              this.getSome();
+              this.needIt = false;
+            }
+          }
+
+        },
+        methods: {
+          getSome: _.debounce(function () {
+            axios.get('http://www.omdbapi.com/?s=' + this.name)
+              .then(function (response) {
+                if(response.data.Search !== undefined) {
+                  this.mvs = response.data.Search;
+                  vm.searchOutput = this.mvs.slice(0,7);
+                  vm.title = '';
+                  console.log(vm.searchOutput[2])
+                }
+                else if (vm.name.length > 1){ vm.title = "Try a different word!" }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          }, 500),
+          onShowMovie: function (id) {
+            this.selectedItem = id;
+            this.isSelected = true;
+            console.log(this.selectedItem)
+          }
+        }
+      })
+	</script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
