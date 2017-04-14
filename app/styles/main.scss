@@ -20,6 +20,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   height: 100vh;
+  margin-left: 50px;
   //width: 100%;
   //background-color: darkslategrey;
 }
@@ -38,7 +39,7 @@ header {
   z-index: 2;
   .search {
     position:relative;
-    margin-left: 4%;
+    margin-left: 50px;
     margin-right: auto;
     width:300px;
     margin-top:25px;
@@ -164,10 +165,7 @@ aside {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-left: 5.5%;
   max-width: 980px;
-  //margin-left: 40px;
-  //margin-top: 70px;
 }
 .card:nth-of-type(6) {
   visibility: hidden;
@@ -198,7 +196,7 @@ aside {
 }
 .card {
   @media (max-width: 700px) {
-    width: 100%;
+    width: 50%;
   }
   position: relative;
   width: 290px;
@@ -325,4 +323,18 @@ aside {
       max-height: 3em;
     }
   }
+}
+//ANIMATIONS
+.fade-enter {
+ opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 2s;
+}
+.fade-leave {
+
+}
+.fade-leave-active {
+  transition: opacity 2s;
+  opacity: 0;
 }

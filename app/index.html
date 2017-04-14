@@ -71,77 +71,27 @@
             </a>
           </div>
         </main>
-        <aside :class="{show: isSelected}" v-if="isSelected">
-			<img :src="selectedItem.Poster" alt=""  v-if="selectedItem.Poster !== 'N/A'">
-			<img src="./images/noposter-l.png" alt="" v-else>
+		  <transition name="fade">
+			  <aside :class="{show: isSelected}" v-if="isSelected">
+				  <img :src="selectedItem.Poster" alt=""  v-if="selectedItem.Poster !== 'N/A'">
+				  <img src="./images/noposter-l.png" alt="" v-else>
 
-			<div class="aside-wrap">
-				<div class="close-button">
+				  <div class="aside-wrap">
+					  <div class="close-button">
                             <span class="close-button" id="close-sidebar" @click="isSelected=false">
                         <a href="#"><img src="./images/close_icon.svg" alt="" ></a>
                         </span>
-				</div>
-				<!--<span>{{selectedItem.Title}}</span>-->
-				<span>Genre:<span class="aside-wrap__span"> {{selectedItem.Type}}</span> </span>
-				<span> Released In: <span class="aside-wrap__span"> {{selectedItem.Year}}</span> </span>
-				<span> IMDBID: <span class="aside-wrap__span">{{selectedItem.imdbID}}</span> </span>
-			</div>
-		</aside>
-
-      </div>
+					  </div>
+					  <!--<span>{{selectedItem.Title}}</span>-->
+					  <span>Genre:<span class="aside-wrap__span"> {{selectedItem.Type}}</span> </span>
+					  <span> Released In: <span class="aside-wrap__span"> {{selectedItem.Year}}</span> </span>
+					  <span> IMDBID: <span class="aside-wrap__span">{{selectedItem.imdbID}}</span> </span>
+				  </div>
+			  </aside>
+		  </transition>
+	  </div>
 		<footer><span>Logo Here</span></footer>
     </div>
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-	<!--<script>-->
-      <!--var vm = new Vue({-->
-        <!--el: '#app',-->
-        <!--data: {-->
-          <!--title: '',-->
-          <!--name: '',-->
-          <!--needIt: true,-->
-          <!--sideBar: false,-->
-          <!--isSelected: false,-->
-          <!--selectedItem: {},-->
-          <!--startSearch: '',-->
-          <!--searchOutput: '',-->
-          <!--url: 'http://www.omdbapi.com/?s=',-->
-          <!--mvs: []-->
-        <!--}-->
-        <!--,-->
-        <!--watch: {-->
-          <!--name: function() {-->
-            <!--this.searchOutput = '';-->
-            <!--if(this.name.length > 0) {-->
-              <!--this.getSome();-->
-              <!--this.needIt = false;-->
-            <!--}-->
-          <!--}-->
-
-        <!--},-->
-        <!--methods: {-->
-          <!--getSome: _.debounce(function () {-->
-            <!--axios.get('http://www.omdbapi.com/?s=' + this.name)-->
-              <!--.then(function (response) {-->
-                <!--if(response.data.Search !== undefined) {-->
-                  <!--this.mvs = response.data.Search;-->
-                  <!--vm.searchOutput = this.mvs.slice(0,7);-->
-                  <!--vm.title = '';-->
-                  <!--console.log(vm.searchOutput[2])-->
-                <!--}-->
-                <!--else if (vm.name.length > 1){ vm.title = "Try a different word!" }-->
-              <!--})-->
-              <!--.catch(function (error) {-->
-                <!--console.log(error);-->
-              <!--});-->
-          <!--}, 500),-->
-          <!--onShowMovie: function (id) {-->
-            <!--this.selectedItem = id;-->
-            <!--this.isSelected = true;-->
-            <!--console.log(this.selectedItem)-->
-          <!--}-->
-        <!--}-->
-      <!--})-->
-	<!--</script>-->
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
