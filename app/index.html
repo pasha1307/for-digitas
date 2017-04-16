@@ -21,7 +21,6 @@
     <!-- build:js scripts/vendor/modernizr.js -->
 	  <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
-	  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 	  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
 	  <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
 	  <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
@@ -32,12 +31,21 @@
     <![endif]-->
     <div id="app">
 		<transition name="fade" mode="out-in">
-			<div class="intro" v-if="needIt" style="margin-top: 150px;">
-				<h1>Assignment for Digitas</h1>
-				<p>The Live Search webapp with Open Movie Database API.
-					Available on the web at: http://for-digitas.s3-website-us-east-1.amazonaws.com/.
-					Github repo: https://github.com/pasha1307/for-digitas
-				</p>
+			<div id="intro" v-if="introShow">
+				<div class="intro-wrap">
+					<div class="intro-wrap__item left">
+						<span>Live Search App</span>
+						<p>Open Movie Database API <br>
+							The OMDb API is a free web service <br>to obtain info on movies, series, and episodes<br>http://www.omdbapi.com
+						</p>
+					</div>
+					<div class="intro-wrap__item right">
+						<span>For Digitas</span>
+						<p>Assignment done by Pavel Krotov,<br>Demo is available at this <a href="http://for-digitas.s3-website-us-east-1.amazonaws.com/"> link</a><br>
+							Repo is available <a href="https://github.com/pasha1307/for-digitas">here</a>
+						</p>
+					</div>
+				</div>
 			</div>
 		</transition>
 		<header>
@@ -52,8 +60,7 @@
 		<span class="search-error__span">{{title}}</span>
 	</header>
       <div id="wrapper">
-
-        <main>
+		  <main>
           <div class="cards">
 			  <transition-group name="fade" tag="div" class="cards">
 				  <a class="card" href="#" v-for="(mv, index) in searchOutput" @click="onShowMovie(mv)" :key="index">
@@ -98,7 +105,7 @@
 			  </aside>
 		  </transition>
 	  </div>
-		<footer><span><img src="./images/logo.png" alt=""></span></footer>
+		<footer><span><img src="./images/logo1.png" alt=""></span></footer>
     </div>
 
     <!-- build:js scripts/vendor.js -->

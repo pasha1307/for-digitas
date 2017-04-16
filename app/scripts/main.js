@@ -3,11 +3,10 @@ var vm = new Vue({
     data: {
       title: '',
       name: '',
-      needIt: true,
+      introShow: true,
       sideBar: false,
       isSelected: false,
       selectedItem: {},
-      startSearch: '',
       searchOutput: '',
       url: 'http://www.omdbapi.com/?s=',
       mvs: []
@@ -17,15 +16,15 @@ var vm = new Vue({
       name: function() {
         this.searchOutput = '';
         if(this.name.length > 0) {
-          this.getSome();
-          this.needIt = false;
+          this.getMovies();
+          this.introShow = false;
         }
       }
 
     },
     methods: {
-      getSome: _.debounce(function () {
-        axios.get('http://www.omdbapi.com/?s=' + this.name)
+      getMovies: _.debounce(function () {
+        axios.get(this.url + this.name)
           .then(function (response) {
             if(response.data.Search !== undefined) {
               vm.mvs = response.data.Search;
@@ -34,6 +33,10 @@ var vm = new Vue({
               console.log(vm.searchOutput[2])
             }
             else if (vm.name.length > 1){ vm.title = 'Try a different word!' }
+            else if (vm.name.length <= 1) {
+              vm.isSelected = false;
+              vm.introShow = true;
+            }
           })
           .catch(function (error) {
             console.log(error);

@@ -1,70 +1,155 @@
 // bower:scss
 // endbower
-@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700');
-$bgcolor: darkslategrey;
-$bodycolor: #666666;
-$green: #79A70A;
-$mainfont: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$secondfont: 'PT Sans', sans-serif;
-$movietitle: 'Slabo 27px', serif;
 
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+@import "varaibles";
+@import "mixins";
+
+/*--------------------------------------------------------------
+  LAYOUT WRAPPERS
+--------------------------------------------------------------*/
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
-  color: #000;
+  color: $black;
   padding: 0.2em 0;
 }
 
 body {
-  background-color: $bgcolor;
-  font-family: $mainfont;
-  font-weight:300;
-  color: $bodycolor;
-  //background-image: url(../images/bg.png);
+  background-color: rgba($black,.7);
+  font-family: $defaultfont;
+  color: $graydark;
+
 }
+
 #wrapper {
+  @include breakpoint(mobileonly) {
+    margin-left: 0;
+  }
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: flex-start;
   height: 100vh;
   margin-left: 50px;
-}
-.intro {
-  display: block;
-  margin: 50px auto 0 auto;
-  color: #AAAAAA;
-  width: 650px;
-  text-align: center;
-  p {
-    font-size: 1.2em;
-    color: whitesmoke;
+  main {
+    flex: 1 1 auto;
+    margin-top: 80px;
   }
 }
+footer {
+  @include breakpoint(mobileonly) {
+    width: 44%;
+    right: 0;
+  }
+  position: fixed;
+  bottom: 10px;
+  width: 10%;
+  right: 100px;
+  height: 200px;
+  span {
+    img {
+      height: 200px;
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+  INTRODUCTION SECTION
+--------------------------------------------------------------*/
+#intro {
+  @include breakpoint(mobileonly) {
+    top: 15%;
+    margin: 0;
+  }
+  @include breakpoint(phablet) {
+    top: 29%;
+  }
+  position: absolute;
+  top: 32%;
+  font-family: $display;
+  margin: 0 50% 0 auto;
+  width: 100%;
+  a:link, a:active {
+    color: $white;
+  }
+  a:visited, a:hover {
+    color: $greenlight;
+  }
+  .intro-wrap {
+    @include breakpoint(mobileonly) {
+      max-width: 37.5em;
+      margin-right: 20px;
+    }
+    @include breakpoint(phablet) {
+     max-width: 48em;
+    }
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    .intro-wrap__item {
+      @include breakpoint(phablet) {
+        max-width: 22em;
+      }
+      flex: 1 1 29em;
+      span {
+        padding-top: 0;
+        font-size: 3em;
+      }
+      p {
+        font-family: $sans;
+        font-weight: 300;
+        font-size: 1.1em;
+      };
+    }
+    & .left {
+      text-align: right;
+      color: rgba($white,0.5);
+      border-right: 3px solid $greenlight;
+      padding-right: 10px;
+    }
+    & .right {
+      color: rgba($white,0.7);
+      padding-left: 10px;
+    }
+  }
+
+}
+
+
+/*--------------------------------------------------------------
+  HEADER AND SEARCH INPUT
+--------------------------------------------------------------*/
 header {
+  @include breakpoint(mobileonly) {
+    margin: 0 auto;
+  }
   position: fixed;
   top: 0;
+  margin-left: 50px;
+  margin-right: auto;
   width: 100%;
   height: 60px;
-  z-index: 2;
+  z-index: $z-2;
   .search {
     position:relative;
-    margin-left: 50px;
-    margin-right: auto;
     width:300px;
     margin-top:25px;
-    //padding-right:30px;
     .btn-search {
       position: absolute;
       right: -50px;
       top: 2px;
-      z-index: 10;
+      z-index: $z-input;
       appearance: none;
       border: 0;
       background: none;
       width: 30px;
       height: 39px;
-      color: #777;
+      color: $gray;
       padding: 0;
       margin: 0;
       svg,img {
@@ -76,19 +161,32 @@ header {
       }
     }
   }
+  input[placeholder] {
+    background-color: rgba($graylight,.2);
+    color: $graylight;
+    &:focus {
+      background-color: rgba($black,.1);
+    }
+  }
+  input::placeholder {
+    color: $graylight;
+  }
   .input-search {
-    height:32px;
-    padding:3px 40px 3px 20px;
-    border-radius:2px;
-    box-shadow:none;
-    border:2px solid #ccc;
-    width:100%;
-    font-size:24px;
+    height: 32px;
+    padding: 3px 40px 3px 20px;
+    border-radius: 2px;
+    box-shadow: none;
+    border: 1px solid $graylight;
+    width: 100%;
+    font-size: 26px;
+    font-family: $sans;
+    font-weight: 300;
     &:focus {
       outline:none;
-      border-color:rgba(black,0.3);
+      color: $white;
+      border-color: rgba($white,.8);
       + .btn-search {
-        color:black;
+        color:rgba($white,.8);
       }
     }
   }
@@ -101,87 +199,92 @@ header {
   }
 }
 
-footer {
-  position: fixed;
-  bottom: 10px;
-  width: 10%;
-  right: 100px;
-  height: 200px;
-  span {
-    img {
-      height: 200px;
-    }
-  }
-  //background-color: green;
-}
-main {
-  flex: 1 1 auto;
-  margin-top: 80px;
-  height: 100vh;
-  //background-color: red;
-}
+/*--------------------------------------------------------------
+  DYNAMIC ASIDE SECTION FOR SELECTED MOVIE
+--------------------------------------------------------------*/
 aside {
-  flex: 1 0 auto;
-  background-color: rgba(0,0,0,.3);
-  max-width: 18.7em;
-  align-self: flex-end;
-  font-family: $secondfont;
-  font-weight: 400;
-
-  .aside-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    margin-right: 40px;
-    margin-top: 30px;
-    padding-right:15px;
-    border-right: 3px solid #00b159;
-    color: rgba(255,255,255,.8);
-    line-height: 180%;
-    span {
-      font-size: 1.1em;
-      .aside-wrap__span {
-        color: rgba(255,255,255,.6);
+  @include breakpoint(mobileonly) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    width: 100vw;
+    background-color: rgba($black,.8);
+  }
+  @include breakpoint(phablet) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    background-color: rgba($black,.8);
+  }
+  @include breakpoint(tablet) {
+    flex: 1 1 auto;
+    background-color: rgba($black,.3);
+    max-width: 18.7em;
+    align-self: flex-end;
+    font-family: $sans;
+    font-weight: 400;
+    z-index: $z-slider;
+    .aside-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
+      margin-right: 40px;
+      margin-top: 30px;
+      padding-right:15px;
+      border-right: 3px solid $greenlight;
+      color: rgba($white,.8);
+      line-height: 180%;
+      span {
+        font-size: 1.1em;
+        .aside-wrap__span {
+          color: rgba($white,.6);
+        }
       }
-    }
-    .close-button {
-       align-self: flex-start;
-       display: flex;
-       width: 25px;
-       height: 25px;
-      padding: 10px;
-      align-content: center;
-      border-radius: 50%;
-      margin-left: 10px;
+      .close-button {
+        align-self: flex-start;
+        display: flex;
+        width: 25px;
+        height: 25px;
+        padding: 10px;
+        align-content: center;
+        border-radius: 50%;
+        margin-left: 10px;
         img {
           width: 25px;
         }
-       :hover {
-         background-color: rgba(209,17,65,1)
-       }
-     }
+        :hover {
+          background-color: $red;
+        }
+      }
   }
-
-
-  span.close-button img {
-    width: 25px;
-    color: #5ac9e7;;
+    span.close-button img {
+      width: 25px;
+      z-index: $z-slider-close;
+    }
   }
 }
+
+/*--------------------------------------------------------------
+  CORE TILES WRAPPER
+--------------------------------------------------------------*/
 .cards {
-  @media (max-width: 1000px) {
+  @media (max-width: 1310px) {
    max-width: 620px;
   }
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   max-width: 980px;
+  //background-color: red;
 }
 .card:nth-of-type(6) {
   visibility: hidden;
-  @media (max-width: 1200px) {
+  @media (max-width: 1350px) {
     visibility: visible;
   }
 }
@@ -202,14 +305,18 @@ aside {
   .card-title { background-color: #666547; }
 }
 .card:nth-of-type(7) {
-  @media (max-width: 1200px) {
+  @media (max-width: 1350px) {
     visibility: hidden;
   }
   .card-title { background-color: #03396c;}
 }
+
+/*--------------------------------------------------------------
+  INDIVIDUAL TILE WRAPPER
+--------------------------------------------------------------*/
 .card {
-  @media (max-width: 700px) {
-    width: 50%;
+  @include breakpoint(mobileonly) {
+    //width: 100%;
   }
   position: relative;
   width: 290px;
@@ -217,23 +324,22 @@ aside {
   margin-right: 15px;
   padding-bottom: 30px;
   background: #fefff9;
-  color: #363636;
+  color: $dark;
   text-decoration: none;
-  box-shadow: rgba(black, 0.9) 0 0 8px 0;
+  box-shadow: rgba($black, 0.9) 0 0 8px 0;
   border-radius: 4px;
-
   span {
     display: block;
   }
   .card-summary {
     padding: 5% 5% 3% 5%;
-    font-family: $secondfont;
+    font-family: $sans;
     color: $green;
     font-size: 1.5em;
     span {
-      font-family: $secondfont;
+      font-family: $sans;
       font-weight:700;
-      color: $bgcolor;
+      color: rgba($black,.6);
     }
   }
   .card-header {
@@ -247,21 +353,22 @@ aside {
     background-blend-mode: overlay;
     border-radius: 4px 4px 0 0;
     &:hover, &:focus {
-      background-color: rgba(white, 0);
+      background-color: rgba($white, 0.2);
     }
   }
-
   .card-genre {
     position: absolute;
-    right: -5px; top: -5px;
+    right: -5px;
+    top: -5px;
     z-index: 1;
     overflow: hidden;
-    width: 75px; height: 75px;
+    width: 75px;
+    height: 75px;
     text-align: right;
     span {
       font-size: 10px;
       font-weight: bold;
-      color: #FFF;
+      color: $white;
       text-transform: uppercase;
       text-align: center;
       line-height: 20px;
@@ -269,28 +376,15 @@ aside {
       -webkit-transform: rotate(45deg);
       width: 100px;
       display: block;
-      background: $green;
-      background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+      background: linear-gradient($greenlight 0%, $green 100%);
       box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
       position: absolute;
       top: 19px; right: -21px;
       :before {
-        content: "";
-        position: absolute; left: 0px; top: 100%;
-        z-index: -1;
-        border-left: 3px solid $green;
-        border-right: 3px solid transparent;
-        border-bottom: 3px solid transparent;
-        border-top: 3px solid $green;
+        @include box-absolute();
       }
       :after {
-        content: "";
-        position: absolute; right: 0px; top: 100%;
-        z-index: -1;
-        border-left: 3px solid transparent;
-        border-right: 3px solid $green;
-        border-bottom: 3px solid transparent;
-        border-top: 3px solid $green;
+        @include box-absolute();
       }
     }
   }
@@ -298,14 +392,15 @@ aside {
   .card-title {
     background-color: rgba(248, 210, 146, 0.9);
     padding: 3.5% 0 2.5% 0;
-    color: white;
-    font-family: $movietitle;
+    color: $white;
+    font-family: $serif;
     text-transform: uppercase;
     position: absolute;
     bottom: 0;
     width: 100%;
     h3 {
-      font-size: 1.2em;
+      font-size: 1.1em;
+      font-weight:400;
       line-height: 1.2;
       padding: 0 3.5%;
       margin: 0;
@@ -314,7 +409,7 @@ aside {
   .card-meta {
     max-height: 0;
     overflow: hidden;
-    color: #666;
+    color: $gray;
     font-size: .78em;
     text-transform: uppercase;
     position: absolute;
@@ -326,8 +421,8 @@ aside {
     }
   }
   &:hover, &:focus {
-    background: white;
-    box-shadow: rgba(black, 0.45) 0px 0px 20px 0px;
+    background: $white;
+    box-shadow: rgba($black, 0.45) 0px 0px 20px 0px;
     .card-title {
       background: rgba(157, 187, 63, .95);
     }
@@ -336,7 +431,11 @@ aside {
     }
   }
 }
-//ANIMATIONS
+
+/*--------------------------------------------------------------
+  ANIMATIONS
+--------------------------------------------------------------*/
+
 .fade-enter {
 
 }
